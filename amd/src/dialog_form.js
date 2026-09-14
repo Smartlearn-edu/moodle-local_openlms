@@ -26,7 +26,7 @@
  */
 define([
     'jquery',
-    'core/modal_factory',
+    'core/modal_cancel',
     'core/modal_events',
     'core/ajax',
     'core/notification',
@@ -34,7 +34,7 @@ define([
     'core/event',
     'core/str',
     'core/log'
-], function($, ModalFactory, ModalEvents, Ajax, Notification, Y, Event, Str, Log) {
+], function($, ModalCancel, ModalEvents, Ajax, Notification, Y, Event, Str, Log) {
     var unloading = false;
 
     /**
@@ -51,7 +51,7 @@ define([
     var DialogForm = function(config) {
         this.config = config;
         this.config.modalConfig = this.config.modalConfig || {};
-        this.config.modalConfig.type = ModalFactory.types.CANCEL;
+        this.config.modalConfig.type = ModalCancel.TYPE || 'CANCEL';
         this.init();
     };
 
@@ -83,7 +83,7 @@ define([
                 // We don't attach trigger element to modal here to avoid MDL-70395.
                 // We normally initialise DialogForm as result of some event
                 // on trigger element, so new listener is not required.
-                return ModalFactory.create(this.config.modalConfig);
+                return ModalCancel.create(this.config.modalConfig);
             }.bind(this))
             .then(function(modal) {
                 // Keep a reference to the modal.
